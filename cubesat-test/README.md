@@ -13,7 +13,7 @@ This folder contains interactive 3D demonstrations of satellites and spacecraft 
 ### 1. Navigate to the Project Directory
 
 ```bash
-cd /Users/gguarin/orbital-ctf/cubesat-test
+cd /orbital-ctf/cubesat-test
 ```
 
 ### 2. Start Local Web Server
