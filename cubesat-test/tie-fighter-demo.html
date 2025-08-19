@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIE Fighter - GLB Model Demo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: linear-gradient(180deg, #000011 0%, #000033 100%);
+            font-family: 'Courier New', monospace;
+        }
+        #canvas-container {
+            width: 100vw;
+            height: 100vh;
+        }
+        #info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #ff0000;
+            font-size: 16px;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+            font-weight: bold;
+        }
+        .controls {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: #4a90e2;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #00ff00;
+            font-size: 20px;
+            text-align: center;
+        }
+        .stats {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #fff;
+            font-size: 12px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border: 1px solid #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <div id="info">IMPERIAL TIE FIGHTER</div>
+    <div class="controls">
+        Mouse: Rotate | Scroll: Zoom | Right-click: Pan | Space: Toggle Wireframe
+    </div>
+    <div class="stats">
+        <div>Model: TIE/LN Fighter</div>
+        <div>Faction: Galactic Empire</div>
+        <div>Status: <span id="status">Loading...</span></div>
+    </div>
+    <div id="loading" class="loading">Loading TIE Fighter...</div>
+    <div id="canvas-container"></div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="tie-fighter.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CubeSat Wireframe Demo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #000;
+            font-family: 'Courier New', monospace;
+        }
+        #canvas-container {
+            width: 100vw;
+            height: 100vh;
+        }
+        #info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #4a90e2;
+            font-size: 14px;
+            text-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+        }
+        .controls {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: #4a90e2;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div id="info">ORBITAL CTF - CUBESAT DEMO</div>
+    <div class="controls">
+        Mouse: Rotate | Scroll: Zoom | Right-click: Pan
+    </div>
+    <div id="canvas-container"></div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/OrbitControls.js"></script>
+    <script src="cubesat.js"></script>
+</body>
+</html>

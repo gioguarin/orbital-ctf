@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sputnik CTF - Challenge Satellite</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: linear-gradient(180deg, #000011 0%, #000033 100%);
+            font-family: 'Courier New', monospace;
+        }
+        #canvas-container {
+            width: 100vw;
+            height: 100vh;
+        }
+        #info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #00ff00;
+            font-size: 16px;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+            font-weight: bold;
+        }
+        .controls {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: #4a90e2;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        .challenge-panel {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #fff;
+            font-size: 12px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border: 1px solid #00ff00;
+            max-width: 280px;
+        }
+        .challenge-panel h3 {
+            color: #00ff00;
+            margin-top: 0;
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+            border-bottom: 1px solid #00ff00;
+            padding-bottom: 5px;
+        }
+        .challenge-item {
+            margin: 10px 0;
+            padding: 8px;
+            border: 1px solid #333;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .challenge-item:hover {
+            border-color: #4a90e2;
+            background: rgba(74, 144, 226, 0.1);
+        }
+        .challenge-item.solved {
+            border-color: #00ff00;
+            background: rgba(0, 255, 0, 0.1);
+        }
+        .challenge-item.locked {
+            border-color: gold;
+            background: rgba(255, 215, 0, 0.1);
+            cursor: not-allowed;
+        }
+        .challenge-title {
+            color: #fff;
+            font-weight: bold;
+            font-size: 11px;
+        }
+        .challenge-points {
+            color: #4a90e2;
+            font-size: 10px;
+            margin-top: 3px;
+        }
+        .challenge-status {
+            float: right;
+            font-size: 10px;
+        }
+        .status-solved {
+            color: #00ff00;
+        }
+        .status-locked {
+            color: gold;
+        }
+        .legend {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            color: #fff;
+            font-size: 11px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border: 1px solid #4a90e2;
+        }
+        .legend-item {
+            margin: 5px 0;
+        }
+        .legend-color {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin-right: 5px;
+            vertical-align: middle;
+            border: 1px solid #fff;
+        }
+        .signal-indicator {
+            position: absolute;
+            top: 40px;
+            left: 10px;
+            color: #ffff00;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div id="info">SPUTNIK CTF - CHALLENGE SATELLITE</div>
+    <div class="signal-indicator">📡 SIGNAL ACTIVE: 4 CHALLENGES DETECTED</div>
+    <div class="controls">
+        Mouse: Rotate | Scroll: Zoom | Click: Challenge Details | Hover: Highlight
+    </div>
+    
+    <div class="challenge-panel">
+        <h3>SPUTNIK CHALLENGES</h3>
+        <div class="challenge-item" data-id="1">
+            <span class="challenge-status">⚪</span>
+            <div class="challenge-title">FREQ - Radio Frequency Analysis</div>
+            <div class="challenge-points">100 POINTS</div>
+        </div>
+        <div class="challenge-item solved" data-id="2">
+            <span class="challenge-status status-solved">✓</span>
+            <div class="challenge-title">ORBIT - Orbital Mechanics</div>
+            <div class="challenge-points">200 POINTS - SOLVED</div>
+        </div>
+        <div class="challenge-item" data-id="3">
+            <span class="challenge-status">⚪</span>
+            <div class="challenge-title">SIGNAL - Signal Decryption</div>
+            <div class="challenge-points">300 POINTS</div>
+        </div>
+        <div class="challenge-item locked" data-id="4">
+            <span class="challenge-status status-locked">🔒</span>
+            <div class="challenge-title">TELEM - Telemetry Decode</div>
+            <div class="challenge-points">500 POINTS - LOCKED</div>
+        </div>
+    </div>
+    
+    <div class="legend">
+        <div class="legend-item">
+            <span class="legend-color" style="background: #00ff00;"></span> Solved
+        </div>
+        <div class="legend-item">
+            <span class="legend-color" style="background: gold;"></span> Locked
+        </div>
+        <div class="legend-item">
+            <span class="legend-color" style="background: white;"></span> Available
+        </div>
+        <div class="legend-item">
+            <span class="legend-color" style="background: #4a90e2;"></span> Hovered
+        </div>
+    </div>
+    
+    <div id="canvas-container"></div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/OrbitControls.js"></script>
+    <script src="sputnik-challenges.js"></script>
+</body>
+</html>

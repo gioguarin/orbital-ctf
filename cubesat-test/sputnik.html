@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sputnik 1 - Wireframe Model</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: linear-gradient(180deg, #000011 0%, #000033 100%);
+            font-family: 'Courier New', monospace;
+        }
+        #canvas-container {
+            width: 100vw;
+            height: 100vh;
+        }
+        #info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #00ff00;
+            font-size: 16px;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+            font-weight: bold;
+        }
+        .controls {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: #4a90e2;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        .details {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #fff;
+            font-size: 12px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border: 1px solid #00ff00;
+            max-width: 250px;
+        }
+        .details h3 {
+            color: #00ff00;
+            margin-top: 0;
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+        }
+        .detail-item {
+            margin: 8px 0;
+            color: #aaa;
+        }
+        .detail-label {
+            color: #4a90e2;
+        }
+        .signal-indicator {
+            position: absolute;
+            top: 50px;
+            left: 10px;
+            color: #ffff00;
+            font-size: 12px;
+            animation: blink 2s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+    </style>
+</head>
+<body>
+    <div id="info">SPUTNIK WIREFRAME MODEL</div>
+    <div class="signal-indicator">📡 TRANSMITTING: 20.005 MHz / 40.002 MHz</div>
+    <div class="controls">
+        Mouse: Rotate | Scroll: Zoom | Right-click: Pan
+    </div>
+    <div class="details">
+        <h3>SPUTNIK 1</h3>
+        <div class="detail-item">
+            <span class="detail-label">Launch:</span> Oct 4, 1957
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Mass:</span> 83.6 kg
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Diameter:</span> 58 cm
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Antennas:</span> 4 x 2.4-2.9m
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Orbit Period:</span> 96.2 min
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Components:</span>
+            <br>• Polished sphere body
+            <br>• 4 whip antennas
+            <br>• Radio transmitters
+            <br>• Temperature sensors
+        </div>
+    </div>
+    <div id="canvas-container"></div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/js/controls/OrbitControls.js"></script>
+    <script src="sputnik.js"></script>
+</body>
+</html>
