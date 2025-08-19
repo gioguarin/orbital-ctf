@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbital CTF - 3D Demo Launcher</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #000011 0%, #000033 50%, #000044 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Particles.js container with fade-in effect */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+        
+        #particles-js.loaded {
+            opacity: 1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h1 {
+            font-size: 3em;
+            color: #00ff00;
+            text-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+        }
+        
+        .subtitle {
+            color: #4a90e2;
+            font-size: 1.2em;
+            text-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
+        }
+        
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .demo-card {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #4a90e2;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: slideUp 0.5s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        .demo-card:nth-child(1) { animation-delay: 0.1s; }
+        .demo-card:nth-child(2) { animation-delay: 0.2s; }
+        .demo-card:nth-child(3) { animation-delay: 0.3s; }
+        .demo-card:nth-child(4) { animation-delay: 0.4s; }
+        .demo-card:nth-child(5) { animation-delay: 0.5s; }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .demo-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(74, 144, 226, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .demo-card:hover::before {
+            left: 100%;
+        }
+        
+        .demo-card:hover {
+            transform: translateY(-5px);
+            border-color: #00ff00;
+            box-shadow: 0 10px 30px rgba(0, 255, 0, 0.3);
+        }
+        
+        .demo-card.featured {
+            border-color: #ffd700;
+            background: rgba(255, 215, 0, 0.05);
+        }
+        
+        .demo-card.featured:hover {
+            border-color: #ffff00;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .demo-title {
+            font-size: 1.5em;
+            color: #00ff00;
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+        }
+        
+        .demo-badge {
+            background: #ff0000;
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.8em;
+            text-transform: uppercase;
+        }
+        
+        .demo-badge.new {
+            background: #00ff00;
+            color: #000;
+        }
+        
+        .demo-badge.interactive {
+            background: #4a90e2;
+        }
+        
+        .demo-description {
+            color: #aaa;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .demo-features {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+        
+        .demo-features li {
+            color: #4a90e2;
+            padding: 3px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .demo-features li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #00ff00;
+        }
+        
+        .launch-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(45deg, #004400, #008800);
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+        
+        .launch-button:hover {
+            background: linear-gradient(45deg, #008800, #00ff00);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+            transform: scale(1.02);
+        }
+        
+        .controls-info {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #444;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        
+        .controls-info h2 {
+            color: #4a90e2;
+            margin-bottom: 15px;
+            text-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+        }
+        
+        .control-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .control-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .control-key {
+            background: #222;
+            border: 1px solid #444;
+            padding: 5px 10px;
+            border-radius: 3px;
+            color: #00ff00;
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .control-desc {
+            color: #aaa;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #666;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #00ff00;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2em; }
+            .demo-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></div>
+    
+    <div class="container">
+        <header>
+            <h1>🛸 ORBITAL CTF 🛸</h1>
+            <p class="subtitle">Three.js Satellite & Spacecraft Demos</p>
+        </header>
+        
+        <div class="demo-grid">
+            <div class="demo-card" onclick="launchDemo('index.html')">
+                <div class="card-header">
+                    <h3 class="demo-title">CubeSat Orbits</h3>
+                    <span class="demo-badge">Basic</span>
+                </div>
+                <p class="demo-description">
+                    Multiple satellites orbiting Earth with category labels. Perfect starting point to understand the orbital mechanics.
+                </p>
+                <ul class="demo-features">
+                    <li>6 Orbiting satellites</li>
+                    <li>Category labels (WEB, CRYPTO, etc.)</li>
+                    <li>Dashed orbital trails</li>
+                    <li>Wireframe Earth</li>
+                </ul>
+                <a href="index.html" class="launch-button" target="_blank">Launch Demo</a>
+            </div>
+            
+            <div class="demo-card" onclick="launchDemo('detailed.html')">
+                <div class="card-header">
+                    <h3 class="demo-title">Detailed CubeSat</h3>
+                    <span class="demo-badge interactive">Interactive</span>
+                </div>
+                <p class="demo-description">
+                    Advanced satellite model with solar panels and integrated challenge system. Interactive challenge selection with status tracking.
+                </p>
+                <ul class="demo-features">
+                    <li>Solar panel arrays</li>
+                    <li>8 Challenge boxes</li>
+                    <li>Color-coded states</li>
+                    <li>Satellite dish</li>
+                </ul>
+                <a href="detailed.html" class="launch-button" target="_blank">Launch Demo</a>
+            </div>
+            
+            <div class="demo-card" onclick="launchDemo('sputnik.html')">
+                <div class="card-header">
+                    <h3 class="demo-title">Sputnik Model</h3>
+                    <span class="demo-badge">Historical</span>
+                </div>
+                <p class="demo-description">
+                    Historically accurate representation of Sputnik 1, the first artificial satellite. Features authentic antenna configuration.
+                </p>
+                <ul class="demo-features">
+                    <li>4 Extended antennas</li>
+                    <li>Radio pulse effects</li>
+                    <li>Orbital animation</li>
+                    <li>1957 specifications</li>
+                </ul>
+                <a href="sputnik.html" class="launch-button" target="_blank">Launch Demo</a>
+            </div>
+            
+            <div class="demo-card featured" onclick="launchDemo('sputnik-ctf.html')">
+                <div class="card-header">
+                    <h3 class="demo-title">Sputnik CTF</h3>
+                    <span class="demo-badge new">New</span>
+                </div>
+                <p class="demo-description">
+                    Sputnik satellite with integrated CTF challenges. Each challenge is embedded into the sphere's surface with dedicated antennas.
+                </p>
+                <ul class="demo-features">
+                    <li>4 CTF challenges</li>
+                    <li>Challenge panels on sphere</li>
+                    <li>Status indicators</li>
+                    <li>Aligned antennas</li>
+                </ul>
+                <a href="sputnik-ctf.html" class="launch-button" target="_blank">Launch Demo</a>
+            </div>
+            
+            <div class="demo-card" onclick="launchDemo('tie-fighter-demo.html')">
+                <div class="card-header">
+                    <h3 class="demo-title">TIE Fighter</h3>
+                    <span class="demo-badge">3D Model</span>
+                </div>
+                <p class="demo-description">
+                    Imperial TIE Fighter loaded from GLB model. Features wireframe toggle and auto-rotation with dramatic lighting.
+                </p>
+                <ul class="demo-features">
+                    <li>GLB model loading</li>
+                    <li>Wireframe toggle (Space)</li>
+                    <li>Auto-rotation</li>
+                    <li>Empire theme</li>
+                </ul>
+                <a href="tie-fighter-demo.html" class="launch-button" target="_blank">Launch Demo</a>
+            </div>
+        </div>
+        
+        <div class="controls-info">
+            <h2>🎮 Universal Controls</h2>
+            <div class="control-grid">
+                <div class="control-item">
+                    <span class="control-key">Mouse Drag</span>
+                    <span class="control-desc">Rotate camera view</span>
+                </div>
+                <div class="control-item">
+                    <span class="control-key">Scroll</span>
+                    <span class="control-desc">Zoom in/out</span>
+                </div>
+                <div class="control-item">
+                    <span class="control-key">Right Click</span>
+                    <span class="control-desc">Pan camera</span>
+                </div>
+                <div class="control-item">
+                    <span class="control-key">Space</span>
+                    <span class="control-desc">Toggle wireframe (TIE Fighter)</span>
+                </div>
+                <div class="control-item">
+                    <span class="control-key">A</span>
+                    <span class="control-desc">Toggle auto-rotation</span>
+                </div>
+                <div class="control-item">
+                    <span class="control-key">R</span>
+                    <span class="control-desc">Reset camera position</span>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p><span class="status-indicator"></span>Server Status: Active | Port: 8081</p>
+            <p>Orbital CTF - Three.js Demos © 2024</p>
+        </footer>
+    </div>
+    
+    <!-- Include the existing stars.js file -->
+    <script src="stars/stars.js"></script>
+    
+    <script>
+        // Wait for page to load, then fade in particles
+        window.addEventListener('load', () => {
+            // Add slight delay to ensure particles are initialized
+            setTimeout(() => {
+                document.getElementById('particles-js').classList.add('loaded');
+            }, 1000); // 1 second after page load (particles init at 700ms)
+        });
+        
+        // Launch demo function - opens in new tab
+        function launchDemo(url) {
+            // Open in new tab
+            window.open(url, '_blank');
+        }
+        
+        // Keyboard navigation - also opens in new tab
+        document.addEventListener('keydown', (e) => {
+            const cards = document.querySelectorAll('.demo-card');
+            if (e.key >= '1' && e.key <= '5') {
+                const index = parseInt(e.key) - 1;
+                if (cards[index]) {
+                    const link = cards[index].querySelector('.launch-button').href;
+                    window.open(link, '_blank');
+                }
+            }
+        });
+        
+        // Add keyboard hints
+        document.querySelectorAll('.demo-card').forEach((card, index) => {
+            const title = card.querySelector('.demo-title');
+            title.innerHTML = `[${index + 1}] ${title.textContent}`;
+        });
+    </script>
+</body>
+</html>

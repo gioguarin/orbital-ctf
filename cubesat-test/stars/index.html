@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Stars Animation</title>
+        <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            background: #000;
+        }
+
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #000;
+        }
+
+        /* Canvas styling */
+        #particles-js canvas {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        </style>
+    </head>
+
+    <body>
+        <!-- Stars animation container - must have this exact ID -->
+        <div id="particles-js"></div>
+        <!-- Load the stars animation script -->
+        <script src="stars.js"></script>
+        <!-- Debug script -->
+        <script>
+        // Check if the script loaded
+        setTimeout(function() {
+            if (typeof particlesJS === 'undefined') {
+                console.error('stars.js failed to load - check file path');
+            } else {
+                console.log('particlesJS loaded successfully');
+            }
+
+            // Check if canvas was created
+            var canvas = document.querySelector('.particles-js-canvas-el');
+            if (canvas) {
+                console.log('Canvas created successfully');
+            } else {
+                console.error('Canvas not created');
+            }
+        }, 1000);
+        </script>
+    </body>
+
+</html>
