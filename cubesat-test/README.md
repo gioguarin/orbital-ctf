@@ -1,6 +1,6 @@
 # CubeSat & Satellite 3D Demos
 
-This folder contains interactive 3D demonstrations of satellites and spacecraft using Three.js, including wireframe models of CubeSats, Sputnik, and custom spacecraft.
+This folder contains interactive 3D demonstrations of satellites and spacecraft using Three.js, including wireframe models of CubeSats, Sputnik, and custom spacecraft with a unified launcher interface.
 
 ## Prerequisites
 
@@ -45,6 +45,21 @@ lsof -i :8081
 # Kill the process using the port
 kill -9 $(lsof -t -i:8081)
 ```
+
+## Quick Start - Demo Launcher
+
+### **Main Launcher Interface**
+**URL:** `http://localhost:8081/launcher.html`
+
+The launcher provides a unified interface to access all demos with:
+- Visual demo cards with descriptions and features
+- Animated particle starfield background
+- Fade-in effect for particles after page load
+- Keyboard shortcuts (1-5) for quick access
+- Opens demos in new tabs to preserve launcher access
+- Responsive design for different screen sizes
+- Featured demo highlighting (Sputnik CTF)
+- Real-time status indicators
 
 ## Available Demos
 
@@ -103,6 +118,7 @@ kill -9 $(lsof -t -i:8081)
 ```
 cubesat-test/
 ├── README.md                    # This file
+├── launcher.html                # Main demo launcher interface
 ├── index.html                   # Basic orbiting satellites
 ├── cubesat.js                   # JavaScript for basic demo
 ├── detailed.html                # Detailed CubeSat view
@@ -113,7 +129,9 @@ cubesat-test/
 ├── sputnik-challenges.js        # JavaScript for Sputnik CTF
 ├── tie-fighter-demo.html        # TIE Fighter model viewer
 ├── tie-fighter.js               # JavaScript for TIE Fighter
-└── low_poly_tie_fighter.glb    # 3D model file (required for TIE Fighter demo)
+├── low_poly_tie_fighter.glb    # 3D model file (required for TIE Fighter demo)
+└── stars/
+    └── stars.js                 # Particle animation system for launcher background
 ```
 
 ## Environment Variables (.env)
