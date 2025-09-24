@@ -1,0 +1,10 @@
+{
+  "title": "Web Security Analysis",
+  "description": "This login form has a vulnerability. The source code shows:\n\n```php\n$username = $_POST['username'];\n$password = $_POST['password'];\n$query = \"SELECT * FROM users WHERE username='$username' AND password='$password'\";\n```\n\nWhat type of attack could extract the admin password? Provide the attack payload as the flag.\n\n**Hint:** This is a classic web security vulnerability. The attack involves crafting input that changes the SQL query logic.",
+  "category": "hard",
+  "points": 450,
+  "flag": "flag{' OR '1'='1' -- }",
+  "difficulty": "hard",
+  "isActive": true,
+  "files": []
+}

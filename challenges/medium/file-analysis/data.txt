@@ -1,0 +1,17 @@
+Timestamp: 2025-01-15 12:00:00 UTC
+User: admin
+Action: login successful
+IP: 192.168.1.100
+
+Timestamp: 2025-01-15 12:05:00 UTC
+User: guest
+Action: flag access granted
+IP: 10.0.0.50
+
+The secret flag is: flag{log_file_analysis_101}
+But you need to find it in the logs above!
+
+Timestamp: 2025-01-15 12:10:00 UTC
+User: hacker
+Action: access denied
+IP: 203.0.113.1

@@ -1,0 +1,10 @@
+{
+  "title": "Web Page Inspection",
+  "description": "Modern web browsers have built-in developer tools for inspecting web pages. Visit this URL and use your browser's developer tools to find the hidden flag:\n\n`https://httpbin.org/html`\n\n**Hint:** Right-click on the page and select 'Inspect' or 'View Page Source'. Look for HTML comments or hidden elements.",
+  "category": "medium",
+  "points": 150,
+  "flag": "flag{web_inspection_master}",
+  "difficulty": "medium",
+  "isActive": true,
+  "files": []
+}

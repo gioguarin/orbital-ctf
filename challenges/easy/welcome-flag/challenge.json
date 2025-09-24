@@ -1,0 +1,10 @@
+{
+  "title": "Welcome to Orbital CTF",
+  "description": "Welcome to your first CTF challenge! The flag is hidden in plain sight. Look at the challenge description carefully.\n\n**Hint:** Sometimes the answer is right in front of you!",
+  "category": "easy",
+  "points": 50,
+  "flag": "flag{welcome_to_orbital_ctf_2025}",
+  "difficulty": "easy",
+  "isActive": true,
+  "files": []
+}

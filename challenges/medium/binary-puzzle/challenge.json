@@ -1,0 +1,10 @@
+{
+  "title": "Binary Puzzle",
+  "description": "Computers think in binary (0s and 1s). Convert this binary string to ASCII text:\n\n`01100110011011000110000101100111011110110110001001101001011011100110000101110010011110010011100101101111011011000111010101100101`\n\n**Hint:** Group the bits into 8-bit chunks (bytes) and convert each to decimal, then to ASCII characters.",
+  "category": "medium",
+  "points": 200,
+  "flag": "flag{binary_to_ascii_puzzle}",
+  "difficulty": "medium",
+  "isActive": true,
+  "files": []
+}

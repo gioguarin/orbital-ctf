@@ -1,0 +1,10 @@
+{
+  "title": "Reverse Engineering Challenge",
+  "description": "This Python script has been obfuscated. Reverse engineer it to find the flag:\n\n```python\nexec('''\nimport base64\nflag = "flag{reverse_engineering_master}"\nencoded = base64.b64encode(flag.encode()).decode()\nprint("Encoded flag:", encoded)\n''')\n```\n\n**Hint:** The script is actually running Python code that encodes the flag. Run it and decode the output!",
+  "category": "hard",
+  "points": 400,
+  "flag": "flag{reverse_engineering_master}",
+  "difficulty": "hard",
+  "isActive": true,
+  "files": []
+}

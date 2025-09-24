@@ -1,0 +1,10 @@
+{
+  "title": "Advanced Cryptography",
+  "description": "This message was encrypted using AES-256-CBC with a password. The encrypted data (hex) is:\n\n`U2FsdGVkX1+9vJfK2L5g6H8mN3qR4tY7wXzA1cB2dE3fG4hI5jK6lM7nO8pQ9rS0tU1vW2xY3zA4bC5dE6fG7hI8jK9lM0nO1pQ2rS3tU4vW5xY6z`\n\nThe password is a common CTF phrase. Can you decrypt it?\n\n**Hint:** The password is 16 characters long and contains only letters. Think about what CTFs are called.",
+  "category": "hard",
+  "points": 500,
+  "flag": "flag{aes_encryption_cracked}",
+  "difficulty": "hard",
+  "isActive": true,
+  "files": []
+}

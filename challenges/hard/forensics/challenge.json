@@ -1,0 +1,10 @@
+{
+  "title": "Memory Forensics",
+  "description": "This is a memory dump from a compromised system. Download the file and use forensics techniques to find the hidden flag.\n\n**Hint:** Memory dumps often contain sensitive information like passwords, API keys, and flags. Use tools like `strings` on Linux or search for patterns that look like flags.",
+  "category": "hard",
+  "points": 475,
+  "flag": "flag{forensics_memory_analysis}",
+  "difficulty": "hard",
+  "isActive": true,
+  "files": ["memory_dump.txt"]
+}

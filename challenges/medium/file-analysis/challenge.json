@@ -1,0 +1,10 @@
+{
+  "title": "Log File Analysis",
+  "description": "Security analysts often need to examine log files to find important information. Download the log file and find the secret flag that was accessed.\n\n**Hint:** Look for successful access events and examine the log entries carefully. The flag might be embedded in the log data.",
+  "category": "medium",
+  "points": 175,
+  "flag": "flag{log_file_analysis_101}",
+  "difficulty": "medium",
+  "isActive": true,
+  "files": ["data.txt"]
+}

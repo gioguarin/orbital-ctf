@@ -1,0 +1,10 @@
+{
+  "title": "Hidden in Plain Sight",
+  "description": "Download the attached file and find the flag hidden within it.\n\n**Hint:** The flag is literally in the file - just read it carefully!",
+  "category": "easy",
+  "points": 75,
+  "flag": "flag{hidden_in_plain_sight}",
+  "difficulty": "easy",
+  "isActive": true,
+  "files": ["secret.txt"]
+}

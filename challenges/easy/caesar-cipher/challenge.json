@@ -1,0 +1,10 @@
+{
+  "title": "Caesar Cipher",
+  "description": "Julius Caesar used a simple substitution cipher to encrypt his messages. Each letter was shifted by 3 positions. Decrypt this message to find the flag:\n\n`kdon{fdhvdu_fdhvhu_bhfklv}`\n\n**Hint:** A=1, B=2, C=3... Try shifting each letter back by 3 positions.",
+  "category": "easy",
+  "points": 100,
+  "flag": "flag{caesar_cipher_shift}",
+  "difficulty": "easy",
+  "isActive": true,
+  "files": []
+}

@@ -1,0 +1,10 @@
+Memory dump analysis - this would contain binary data in a real scenario.
+
+Looking for strings in memory...
+Found: user_password=admin123
+Found: session_token=abc123def456
+Found: flag{forensics_memory_analysis}
+Found: api_key=sk-1234567890abcdef
+Found: debug_mode=true
+
+The flag is hidden among legitimate memory contents.

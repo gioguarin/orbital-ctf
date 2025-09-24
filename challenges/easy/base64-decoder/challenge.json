@@ -1,0 +1,10 @@
+{
+  "title": "Base64 Decoder",
+  "description": "Base64 is a common encoding scheme used to represent binary data as text. Decode this Base64 string to find the flag:\n\n`ZmxhZ3tiYXNlNjRfZGVjb2Rlcl9pc19mdW4hfQ==`\n\n**Hint:** Use an online Base64 decoder or the `base64 -d` command in Linux.",
+  "category": "easy",
+  "points": 75,
+  "flag": "flag{base64_decoder_is_fun!}",
+  "difficulty": "easy",
+  "isActive": true,
+  "files": []
+}

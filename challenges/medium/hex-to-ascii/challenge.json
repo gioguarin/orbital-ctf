@@ -1,0 +1,10 @@
+{
+  "title": "Hex to ASCII",
+  "description": "Hexadecimal is base-16 numbering system commonly used in computing. Convert this hex string to ASCII text to reveal the flag:\n\n`666c61677b6865785f746f5f61736369695f636f6e76657273696f6e7d`\n\n**Hint:** Use an online hex to ASCII converter, or Python: `bytes.fromhex('...').decode('ascii')`",
+  "category": "medium",
+  "points": 150,
+  "flag": "flag{hex_to_ascii_conversion}",
+  "difficulty": "medium",
+  "isActive": true,
+  "files": []
+}
