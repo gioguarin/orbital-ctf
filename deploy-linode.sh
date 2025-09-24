@@ -75,9 +75,12 @@ GAME_END_TIME="2025-01-15T22:00:00.000Z"    # 10 PM UTC
 echo "GAME_START_TIME=\"$GAME_START_TIME\"" >> .env
 echo "GAME_END_TIME=\"$GAME_END_TIME\"" >> .env
 
+# Setup database
+echo "🗄️ Setting up database schema..."
+npx prisma migrate reset --force
+
 # Seed database
 echo "🌱 Seeding database..."
-npm run prisma:migrate
 npm run prisma:seed
 
 # Build the application
