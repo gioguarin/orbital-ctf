@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  app:
+  orbital-ctf:
     build:
       context: .
       dockerfile: Dockerfile
@@ -9,13 +9,47 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=file:/app/prisma/dev.db
-      - NEXTAUTH_SECRET="your-secret-goes-here"
-      - NEXTAUTH_URL="http://localhost:3000"
+      - DATABASE_URL=file:./dev.db
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET:-your-secret-here}
+      - NEXTAUTH_URL=${NEXTAUTH_URL:-http://localhost:3000}
+      - GAME_START_TIME=${GAME_START_TIME:-""}
+      - GAME_END_TIME=${GAME_END_TIME:-""}
+      - INGEST_CHALLENGES_AT_STARTUP=true
+      - CHALLENGES_DIR=./challenges
     volumes:
-      - sqlite_data:/app/prisma
-      - uploads:/app/public/uploads
+      - ./dev.db:/app/dev.db
+      - ./challenges:/challenges:ro
+      - ./public/uploads:/app/public/uploads
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - orbital-network
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - orbital-ctf
+    restart: unless-stopped
+    networks:
+      - orbital-network
+
+networks:
+  orbital-network:
+    driver: bridge
 
 volumes:
-  sqlite_data:
-  uploads:
+  orbital-db:
+    driver: local
+  orbital-uploads:
+    driver: local
