@@ -34,8 +34,9 @@ sudo apt install -y certbot python3-certbot-nginx
 
 # Setup PostgreSQL
 echo "🗄️ Setting up PostgreSQL..."
-sudo -u postgres createuser --createdb --superuser $USER
-createdb orbital_ctf
+DB_USER="orbital_user"
+sudo -u postgres psql -c "CREATE USER $DB_USER WITH CREATEDB SUPERUSER PASSWORD 'orbital_password';" 2>/dev/null || echo "User $DB_USER already exists"
+sudo -u postgres createdb -O $DB_USER orbital_ctf 2>/dev/null || echo "Database orbital_ctf already exists"
 
 # Setup Redis
 echo "🔄 Starting Redis..."
@@ -66,7 +67,7 @@ NEXTAUTH_URL="https://your-domain.com"  # Replace with actual domain
 # Update .env file
 sed -i "s|NEXTAUTH_SECRET=.*|NEXTAUTH_SECRET=\"$NEXTAUTH_SECRET\"|" .env
 sed -i "s|NEXTAUTH_URL=.*|NEXTAUTH_URL=\"$NEXTAUTH_URL\"|" .env
-sed -i "s|DATABASE_URL=.*|DATABASE_URL=\"postgresql://$USER@localhost:5432/orbital_ctf\"|" .env
+sed -i "s|DATABASE_URL=.*|DATABASE_URL=\"postgresql://$DB_USER:orbital_password@localhost:5432/orbital_ctf\"|" .env
 
 # Set game times (adjust as needed)
 GAME_START_TIME="2025-01-15T18:00:00.000Z"  # 6 PM UTC
