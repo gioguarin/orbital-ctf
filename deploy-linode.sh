@@ -50,9 +50,21 @@ NEXTAUTH_SECRET=$(openssl rand -base64 32)
 NEXTAUTH_URL="https://your-domain.com"  # Replace with actual domain
 
 # Update .env file
+echo "🔍 Debug: Current .env content:"
+cat .env
+echo ""
+
 sed -i "s|NEXTAUTH_SECRET=.*|NEXTAUTH_SECRET=\"$NEXTAUTH_SECRET\"|" .env
 sed -i "s|NEXTAUTH_URL=.*|NEXTAUTH_URL=\"$NEXTAUTH_URL\"|" .env
 sed -i "s|DATABASE_URL=.*|DATABASE_URL=file:./dev.db|" .env
+
+echo "🔍 Debug: Updated .env content:"
+cat .env
+echo ""
+
+echo "🔍 Debug: DATABASE_URL value:"
+grep DATABASE_URL .env
+echo ""
 
 # Set game times (adjust as needed)
 GAME_START_TIME="2025-01-15T18:00:00.000Z"  # 6 PM UTC
@@ -63,6 +75,11 @@ echo "GAME_END_TIME=\"$GAME_END_TIME\"" >> .env
 
 # Setup database
 echo "🗄️ Setting up database schema..."
+echo "🔍 Debug: Environment variables before prisma:"
+echo "DATABASE_URL: $DATABASE_URL"
+env | grep DATABASE_URL
+echo ""
+
 npx prisma migrate reset --force
 
 # Seed database
