@@ -21,6 +21,13 @@ echo "📦 Installing Docker Compose..."
 sudo curl -L "https://github.com/docker/compose/releases/download/v2.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 
+# Login to Docker Hub (optional but recommended)
+echo "🔐 Docker Hub Authentication (Optional):"
+echo "If you have a Docker Hub account, run: docker login"
+echo "This will prevent authentication errors when pulling images."
+echo "Otherwise, the build may fail due to rate limits."
+echo ""
+
 # Clone the CTF repository
 echo "📥 Cloning Orbital CTF..."
 git clone https://github.com/gioguarin/orbital-ctf.git
@@ -53,6 +60,7 @@ mkdir -p ssl
 
 # Build and start with Docker Compose
 echo "🐳 Building and starting with Docker..."
+echo "Note: If you get authentication errors, run 'docker login' first"
 docker-compose up -d --build
 
 # Wait for services to be healthy
