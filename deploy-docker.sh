@@ -65,7 +65,7 @@ docker-compose ps
 
 # Test the application
 echo "🧪 Testing application..."
-curl -f http://localhost:3000/api/health || echo "Health check failed, but continuing..."
+curl -f http://localhost/api/health || echo "Health check failed, but continuing..."
 
 echo "✅ Docker deployment complete!"
 echo ""
