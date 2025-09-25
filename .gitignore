@@ -44,3 +44,20 @@ yarn-error.log*
 next-env.d.ts
 
 /prisma/generated
+
+# sensitive files
+*.key
+*.pem
+*.crt
+*.p12
+*.pfx
+secrets.json
+config/secrets.*
+*.secret
+*.token
+id_rsa
+id_rsa.pub
+.ssh/
+passwords.txt
+credentials.json
+auth.json
