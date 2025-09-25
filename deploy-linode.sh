@@ -52,7 +52,7 @@ NEXTAUTH_URL="https://your-domain.com"  # Replace with actual domain
 # Update .env file
 sed -i "s|NEXTAUTH_SECRET=.*|NEXTAUTH_SECRET=\"$NEXTAUTH_SECRET\"|" .env
 sed -i "s|NEXTAUTH_URL=.*|NEXTAUTH_URL=\"$NEXTAUTH_URL\"|" .env
-sed -i "s|DATABASE_URL=.*|DATABASE_URL=\"file:./dev.db\"|" .env
+sed -i "s|DATABASE_URL=.*|DATABASE_URL=file:./dev.db|" .env
 
 # Set game times (adjust as needed)
 GAME_START_TIME="2025-01-15T18:00:00.000Z"  # 6 PM UTC
