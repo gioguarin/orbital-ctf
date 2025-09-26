@@ -1,0 +1,10 @@
+{
+  "title": "Signal in the Noise: VoIP RTP Extraction",
+  "description": "A suspicious SIP call was captured. Download the packet capture and recover the hidden flag by reconstructing the call, extracting the RTP audio, and decoding the message.\n\nTIP: Submit the flag using all lowercase letters. Replace any spaces with underscores.\nthe_flag_should_look_like_this",
+  "category": "medium",
+  "points": 175,
+  "flag": "flag{l_did_you_know_gods_of_death_love_apples}",
+  "difficulty": "medium",
+  "isActive": true,
+  "files": ["stream.pcap"]
+}
