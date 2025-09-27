@@ -1,59 +1,70 @@
-# Build stage
+# ---------- Build stage ----------
 FROM node:20-slim AS builder
 
-# Set working directory
+# (Optional here, but harmless)
+RUN apt-get update -y \
+ && apt-get install -y --no-install-recommends openssl libssl3 \
+ && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
-# Install dependencies first (including dev dependencies)
+# Install ALL deps for build/typegen
 COPY package*.json ./
 RUN npm ci
 
-# Copy project files
+# Copy source
 COPY . .
 
-# Generate Prisma client
+# Generate Prisma Client for build steps (typegen etc.)
 RUN npx prisma generate
 
-# Build the Next.js application
+# Build Next.js
 RUN npm run build
 
-# Production stage
+
+# ---------- Production runner ----------
 FROM node:20-slim AS runner
 WORKDIR /app
 
-# Install production dependencies only
+# Prisma needs OpenSSL at runtime; healthcheck uses curl
+RUN apt-get update -y \
+ && apt-get install -y --no-install-recommends openssl libssl3 curl \
+ && rm -rf /var/lib/apt/lists/*
+
+# Install production deps only
 COPY package*.json ./
 RUN npm ci --production
 
-# Copy built files from builder stage
+# App artifacts
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/prisma ./prisma
-
-# Ensure uploads and challenges directories exist
-RUN mkdir -p public/uploads
-RUN mkdir -p /challenges
-
-# Copy other necessary files
 COPY --from=builder /app/next.config.ts ./
 COPY --from=builder /app/package.json ./
 
-# Create a non-root user and switch to it
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 --ingroup nodejs --disabled-password --shell /sbin/nologin nextjs
+# Ensure required dirs exist and are writable
+RUN mkdir -p /app/prisma /app/public/uploads /challenges \
+ && useradd -u 1001 -ms /sbin/nologin nextjs \
+ && chown -R 1001:1001 /app /challenges
 USER nextjs
 
-# Expose the port the app runs on
-EXPOSE 3000
-
-# Set environment variables
+# Defaults (override in compose)
 ENV NODE_ENV=production
 ENV PORT=3000
+# Use an absolute, stable default; compose can override
+ENV DATABASE_URL="file:/app/prisma/dev.db"
 ENV CHALLENGES_DIR=/challenges
 ENV INGEST_CHALLENGES_AT_STARTUP=false
 
+EXPOSE 3000
 
-# Initialize database and run the app
+# Regenerate Prisma Client against the runner's node_modules to ensure matching engines
+# (and clear any stale engine caches just in case)
+RUN rm -rf node_modules/.prisma /tmp/prisma-engines || true
+RUN npx prisma generate
+
+# Run migrations, seed, then start
 CMD npx prisma migrate deploy && \
     npx prisma db seed && \
     npm start
+

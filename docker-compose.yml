@@ -9,20 +9,20 @@ services:
       - "80:3000"
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=file:./dev.db
+      - DATABASE_URL=file:/app/prisma/dev.db
       - NEXTAUTH_SECRET=${NEXTAUTH_SECRET:-your-secret-here}
-      - NEXTAUTH_URL=${NEXTAUTH_URL:-http://localhost:3000}
+      - NEXTAUTH_URL=${NEXTAUTH_URL:-http://localhost}
       - GAME_START_TIME=${GAME_START_TIME:-""}
       - GAME_END_TIME=${GAME_END_TIME:-""}
       - INGEST_CHALLENGES_AT_STARTUP=true
-      - CHALLENGES_DIR=./challenges
+      - CHALLENGES_DIR=/challenges
     volumes:
-      - ./dev.db:/app/dev.db
-      - ./challenges:/challenges:ro
-      - ./public/uploads:/app/public/uploads
+      - orbital-db:/app/prisma            # persistent SQLite dir
+      - ./challenges:/challenges:ro       # read-only challenge files
+      - orbital-uploads:/app/public/uploads   # persistent uploads volume
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      test: ["CMD", "curl", "-fsS", "http://localhost:3000/api/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -30,14 +30,11 @@ services:
     networks:
       - orbital-network
 
-
-
 networks:
   orbital-network:
     driver: bridge
 
 volumes:
   orbital-db:
-    driver: local
   orbital-uploads:
-    driver: local
+
